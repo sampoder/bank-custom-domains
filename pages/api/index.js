@@ -1,5 +1,7 @@
 const fetch = require("node-fetch");
 
+
+
 module.exports = async (req, res) => {
   const { host } = req.headers;
   let html = await fetch(
@@ -10,6 +12,8 @@ module.exports = async (req, res) => {
       res.status(500).send("Encountered error serving profile page")
     );
   console.log(html);
+  // html = decodeURIComponent(escape(html))
+  html = html.replace('<head>', '<head><meta charset="UTF-8">')
   if (process.env.metaimage) {
     html = html.replace(
       /https:\/\/workshop-cards.hackclub.com\/(.*)brand=Bank/g,
