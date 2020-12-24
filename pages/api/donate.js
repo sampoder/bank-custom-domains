@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
 
     axios(config)
       .then(function (response) {
-        let html = response.data
+        let html = response.data;
         html = html.replace("<head>", '<head><meta charset="UTF-8">');
         if (process.env.metaimage) {
           html = html.replace(
@@ -42,8 +42,16 @@ module.exports = async (req, res) => {
             /:title(.*)">/g,
             `:title" content="${process.env.title}">`
           );
-          html = html
-            .replace('<head>', `<head><title>${process.env.title}</title>`);
+          html = html.replace(
+            "<head>",
+            `<head><title>${process.env.title}</title>`
+          );
+        }
+        if (process.env.customcss) {
+          html = html.replace(
+            "<head>",
+            `<head><link rel="stylesheet" media="all" href="${process.env.customcss}" data-turbolinks-track="reload">`
+          );
         }
         res.send(html);
       })

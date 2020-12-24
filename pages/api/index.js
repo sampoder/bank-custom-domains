@@ -22,10 +22,26 @@ module.exports = async (req, res) => {
       `description" content="${process.env.description}">`
     );
   }
+  if (process.env.site_name) {
+    console.log(html);
+    html = html.replace(
+      /site_name(.*)>/g,
+      `site_name" content="${process.env.site_name}">`
+    );
+  }
   if (process.env.title) {
     html = html.replace(
       /:title(.*)">/g,
       `:title" content="${process.env.title}">`
+    );
+    html = html
+      .replace(/(\r\n|\n|\r)/gm, " ")
+      .replace(/title>(.*)title>/g, `title>${process.env.title}</title>`);
+  }
+
+  if (process.env.customcss) {
+    html = html.replace('<head>',
+      `<head><link rel="stylesheet" media="all" href="${process.env.customcss}" data-turbolinks-track="reload">`
     );
     html = html
       .replace(/(\r\n|\n|\r)/gm, " ")
