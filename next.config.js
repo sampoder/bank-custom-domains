@@ -3,7 +3,7 @@ module.exports = {
       return [
         {
           source: '/',
-          destination: `https://bank.hackclub.com/donations/start/${process.env.username}/`,
+          destination: `/api`,
         },
         {
           source: `/donations/start/${process.env.username}`,
