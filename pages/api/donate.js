@@ -4,6 +4,10 @@ var FormData = require("form-data");
 module.exports = async (req, res) => {
   const { host } = req.headers;
 
+  if(!req.body["donation[name]"]){
+    res.redirect('/')
+  }
+
   var data = new FormData();
   data.append("donation[name]", req.body["donation[name]"]);
   data.append("donation[email]", req.body["donation[email]"]);
