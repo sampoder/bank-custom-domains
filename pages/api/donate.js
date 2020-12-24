@@ -23,7 +23,29 @@ module.exports = async (req, res) => {
 
     axios(config)
       .then(function (response) {
-        res.send(response.data);
+        let html = response.data
+        html = html.replace("<head>", '<head><meta charset="UTF-8">');
+        if (process.env.metaimage) {
+          html = html.replace(
+            /https:\/\/workshop-cards.hackclub.com\/(.*)brand=Bank/g,
+            process.env.metaimage
+          );
+        }
+        if (process.env.description) {
+          html = html.replace(
+            /description" c(.*)">/g,
+            `description" content="${process.env.description}">`
+          );
+        }
+        if (process.env.title) {
+          html = html.replace(
+            /:title(.*)">/g,
+            `:title" content="${process.env.title}">`
+          );
+          html = html
+            .replace('<head>', `<head><title>${process.env.title}</title>`);
+        }
+        res.send(html);
       })
       .catch(function (error) {
         res.send(error);
