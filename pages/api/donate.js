@@ -25,10 +25,10 @@ module.exports = async (req, res) => {
       .then(function (response) {
         let html = response.data;
         html = html.replace("<head>", '<head><meta charset="UTF-8">');
-        if (process.env.metaimage) {
+        if (process.env.meta_image) {
           html = html.replace(
             /https:\/\/workshop-cards.hackclub.com\/(.*)brand=Bank/g,
-            process.env.metaimage
+            process.env.meta_image
           );
         }
         if (process.env.description) {
@@ -47,10 +47,10 @@ module.exports = async (req, res) => {
             `<head><title>${process.env.title}</title>`
           );
         }
-        if (process.env.customcss) {
+        if (process.env.custom_css) {
           html = html.replace(
             "<head>",
-            `<head><link rel="stylesheet" media="all" href="${process.env.customcss}" data-turbolinks-track="reload">`
+            `<head><link rel="stylesheet" media="all" href="${process.env.custom_css}" data-turbolinks-track="reload">`
           );
         }
         res.send(html);

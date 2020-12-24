@@ -10,10 +10,10 @@ module.exports = async (req, res) => {
       res.status(500).send("Encountered error serving profile page")
     );
   html = html.replace("<head>", '<head><meta charset="UTF-8">');
-  if (process.env.metaimage) {
+  if (process.env.meta_image) {
     html = html.replace(
       /https:\/\/workshop-cards.hackclub.com\/(.*)brand=Bank/g,
-      process.env.metaimage
+      process.env.meta_image
     );
   }
   if (process.env.description) {
@@ -39,9 +39,9 @@ module.exports = async (req, res) => {
       .replace(/title>(.*)title>/g, `title>${process.env.title}</title>`);
   }
 
-  if (process.env.customcss) {
+  if (process.env.custom_css) {
     html = html.replace('<head>',
-      `<head><link rel="stylesheet" media="all" href="${process.env.customcss}" data-turbolinks-track="reload">`
+      `<head><link rel="stylesheet" media="all" href="${process.env.custom_css}" data-turbolinks-track="reload">`
     );
     html = html
       .replace(/(\r\n|\n|\r)/gm, " ")
