@@ -7,10 +7,16 @@ module.exports = async (req, res) => {
   if (!req.body["donation[name]"]) {
     res.redirect("/");
   } else {
+    console.log(req.body["donation[subtitle]"]);
     var data = new FormData();
+    data.append("authenticity_token", req.body["authenticity_token"]);
+    data.append("donation[subtitle]", req.body["donation[subtitle]"]);
     data.append("donation[name]", req.body["donation[name]"]);
     data.append("donation[email]", req.body["donation[email]"]);
     data.append("donation[amount]", req.body["donation[amount]"]);
+    data.append("commit", req.body["commit"]);
+    console.log(data.getHeaders())
+    
 
     var config = {
       method: "post",
